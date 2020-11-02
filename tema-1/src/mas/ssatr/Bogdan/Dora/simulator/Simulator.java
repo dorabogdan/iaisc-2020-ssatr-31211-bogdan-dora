@@ -32,7 +32,7 @@ public class Simulator {
                 System.out.println("Token token from " + location.getId());
 
             else
-                System.out.println("Error ! No tokens in " + location.getId());
+                System.out.println("Error! No tokens in " + location.getId());
         }
         transition.addTempToken();
         System.out.println("Token added in " + transition.getId());

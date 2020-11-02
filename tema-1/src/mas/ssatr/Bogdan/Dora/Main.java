@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         int steps = 15;
         JsonLoader jsonLoader = new JsonLoader();
-        if (jsonLoader.loadJson("src/mas/ssatr/Bogdan/Dora/files/reteapetri.json")) {
+        if (jsonLoader.loadJson("src/mas/ssatr/Bogdan/Dora/files/petrinet.json")) {
             System.out.println("JSON successfully loaded!");
 
             try {
@@ -25,8 +25,8 @@ public class Main {
                 simulator.setSteps(steps);
                 simulator.simulatePetriNet(printWriter);
                 printWriter.close();
-            } catch (IOException var6) {
-                var6.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         } else {
             System.out.println("JSON couldn't be loaded!");
