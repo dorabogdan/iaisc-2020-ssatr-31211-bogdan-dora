@@ -1,5 +1,4 @@
 package net.agten.heatersimulator.domain.algorithm;
-
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 
@@ -71,7 +70,7 @@ public class FuzzyController implements ControllerAlgorithm{
     @Override
     public short nextValue(short curAdc) {
 
-        String filename = "C:\\Users\\heni\\Desktop\\Tema3_2\\iaisc-2020-ssatr-31211-Futo-Henrietta\\tema-4\\HeaterSimulator\\src\\fuzzy_controller.fcl";
+        String filename = "C:\\Users\\Dora\\OneDrive\\Desktop\\proiectmaster\\iaisc-2020-ssatr-31211-bogdan-dora\\tema-4\\heaterSimulator\\src\\fuzzy_controller.fcl";
         this.fis = FIS.load(filename, true);
 
         if (this.fis == null) {

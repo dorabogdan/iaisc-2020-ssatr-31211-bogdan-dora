@@ -27,7 +27,11 @@ import javax.swing.event.ChangeListener;
 
 import net.agten.heatersimulator.Main;
 import net.agten.heatersimulator.controller.Simulator;
-import net.agten.heatersimulator.controller.dto.*;
+import net.agten.heatersimulator.controller.dto.CAAPID16Parameters;
+import net.agten.heatersimulator.controller.dto.CAAPID32Parameters;
+import net.agten.heatersimulator.controller.dto.FuzzyParameters;
+import net.agten.heatersimulator.controller.dto.PID32Parameters;
+import net.agten.heatersimulator.controller.dto.SimulationParameters;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -42,7 +46,7 @@ public class GraphWindow {
     private final static Format DECIMAL_FORMAT = new DecimalFormat("#.00");
     private final static int MAX_TEMP = 300;
 
-    private final String[] ALGORITHMS = {"PID32", "CAAPID32", "CAAPID16", "FUZZYCONTROLLER"};
+    private final String[] ALGORITHMS = {"PID32", "CAAPID32", "CAAPID16","FUZZY"};
 
     private final JFrame frame;
     private final AboutDialog aboutDialog;
@@ -98,7 +102,6 @@ public class GraphWindow {
 		menu.addSeparator();*/
 
         menuItem = new JMenuItem("Quit");
-
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -222,39 +225,7 @@ public class GraphWindow {
                 }));
         return heaterPanel;
     }
-    private JPanel createFuzzyPanel() {
-        JPanel algorithmPanel = new JPanel();
-        algorithmPanel.setLayout(new BoxLayout(algorithmPanel, BoxLayout.Y_AXIS));
-        algorithmPanel.add(createSliderPanel("P:", fuzzyParams.getpGain(), 0, 1000,
-                new ValueChangedAction() {
-                    @Override
-                    public void valueChanged(double newValue) {
-                        fuzzyParams.setpGain((short)Math.round(newValue));
-                    }
-                }));
-        algorithmPanel.add(createSliderPanel("I:", fuzzyParams.getiGain(), 0, 100,
-                new ValueChangedAction() {
-                    @Override
-                    public void valueChanged(double newValue) {
-                        fuzzyParams.setiGain((short)Math.round(newValue));
-                    }
-                }));
-        algorithmPanel.add(createSliderPanel("D:", fuzzyParams.getdGain(), 0, 500,
-                new ValueChangedAction() {
-                    @Override
-                    public void valueChanged(double newValue) {
-                        fuzzyParams.setdGain((short)Math.round(newValue));
-                    }
-                }));
-        algorithmPanel.add(createSliderPanel("Output divisor:", fuzzyParams.getOutputDivisor(), -1024, -1,
-                new ValueChangedAction() {
-                    @Override
-                    public void valueChanged(double newValue) {
-                        fuzzyParams.setOutputDivisor((short)Math.round(newValue));
-                    }
-                }));
-        return algorithmPanel;
-    }
+
     private JPanel createThermistorPanel() {
         JPanel thermistorPanel = new JPanel();
         thermistorPanel.setBorder(BorderFactory.createTitledBorder("Thermistor"));
@@ -441,6 +412,40 @@ public class GraphWindow {
         return algorithmPanel;
     }
 
+    private JPanel createFuzzyPanel() {
+        JPanel algorithmPanel = new JPanel();
+        algorithmPanel.setLayout(new BoxLayout(algorithmPanel, BoxLayout.Y_AXIS));
+        algorithmPanel.add(createSliderPanel("P:", fuzzyParams.getpGain(), 0, 1000,
+                new ValueChangedAction() {
+                    @Override
+                    public void valueChanged(double newValue) {
+                        fuzzyParams.setpGain((short)Math.round(newValue));
+                    }
+                }));
+        algorithmPanel.add(createSliderPanel("I:", fuzzyParams.getiGain(), 0, 100,
+                new ValueChangedAction() {
+                    @Override
+                    public void valueChanged(double newValue) {
+                        fuzzyParams.setiGain((short)Math.round(newValue));
+                    }
+                }));
+        algorithmPanel.add(createSliderPanel("D:", fuzzyParams.getdGain(), 0, 500,
+                new ValueChangedAction() {
+                    @Override
+                    public void valueChanged(double newValue) {
+                        fuzzyParams.setdGain((short)Math.round(newValue));
+                    }
+                }));
+        algorithmPanel.add(createSliderPanel("Output divisor:", fuzzyParams.getOutputDivisor(), -1024, -1,
+                new ValueChangedAction() {
+                    @Override
+                    public void valueChanged(double newValue) {
+                        fuzzyParams.setOutputDivisor((short)Math.round(newValue));
+                    }
+                }));
+        return algorithmPanel;
+    }
+
     public void show() {
         frame.setVisible(true);
     }
@@ -475,13 +480,12 @@ public class GraphWindow {
             return simulator.runSimulation(params, caapidParams);
         } else if ("CAAPID16".equals(algo)){
             return simulator.runSimulation(params, caapid16Params);
-        } else if ("FUZZYCONTROLLER".equals(algo)) {
+        } else if ("FUZZY".equals(algo)){
             return simulator.runSimulation(params, fuzzyParams);
-        }
-        else
+        } else {
             return null;
+        }
     }
-
 
     private JPanel createSliderPanel(String labelText, double initialValue, int min, int max,
                                      final ValueChangedAction action) {

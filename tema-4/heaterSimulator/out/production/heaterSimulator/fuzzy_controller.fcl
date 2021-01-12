@@ -1,0 +1,48 @@
+/*
+Example: A tip calculation FIS (fuzzy inference system)
+Calculates tip based on 'servie' and 'food'
+
+If you want to about this example (and fuzzy logic), please
+read Matlab's tutorial on fuzzy logic toolbox
+http://www.mathworks.com/access/helpdesk/help/pdf_doc/fuzzy/fuzzy.pdf
+
+Pablo Cingolani
+pcingola@users.sourceforge.net
+*/
+
+FUNCTION_BLOCK fuzzycontroller // Block definition (there may be more than one block per file)
+
+VAR_INPUT // Define input variables
+error : REAL;
+END_VAR
+
+VAR_OUTPUT // Define output variable
+result : REAL;
+END_VAR
+
+FUZZIFY error
+TERM positive :=   (5, 0) (750, 1) (1000, 0);
+TERM intermediar := (-5, 0) (0, 1) (5, 0);
+TERM negative := (-1000, 0) (-750, 1) (-5, 0);
+END_FUZZIFY
+
+DEFUZZIFY result
+TERM heat := (115,0) (120.5,1) (130,0);
+TERM medium := (95,0) (115,1) (120,0);
+TERM cool := (0,0) (55,1) (95,0);
+
+METHOD : COG; // Use 'Center Of Gravity' defuzzification method
+DEFAULT := 0; // Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+AND : MIN; // Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+ACT : MIN; // Use 'min' activation method
+ACCU : MAX; // Use 'max' accumulation method
+
+RULE 1 : IF error IS positive THEN result IS cool;
+RULE 2 : IF error IS intermediar THEN result IS medium;
+RULE 3 : IF error IS negative THEN result IS heat;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK

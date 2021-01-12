@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/heaterSimulator.iml" filepath="$PROJECT_DIR$/heaterSimulator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HeaterSimulator.iml" filepath="$PROJECT_DIR$/HeaterSimulator.iml" />
     </modules>
   </component>
 </project>

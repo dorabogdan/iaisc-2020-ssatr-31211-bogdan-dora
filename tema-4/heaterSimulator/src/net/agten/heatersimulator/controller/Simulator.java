@@ -5,6 +5,7 @@ import net.agten.heatersimulator.domain.Environment;
 import net.agten.heatersimulator.domain.Heater;
 import net.agten.heatersimulator.domain.Thermistor;
 import net.agten.heatersimulator.domain.algorithm.*;
+
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;

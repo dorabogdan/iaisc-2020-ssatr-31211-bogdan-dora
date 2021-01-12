@@ -1,5 +1,6 @@
 package net.agten.heatersimulator.domain.algorithm;
 
+
 /**
  * This class implements a proportional–integral–derivative (PID) algorithm for
  * controlling a heater's temperature. The algorithm uses only integer

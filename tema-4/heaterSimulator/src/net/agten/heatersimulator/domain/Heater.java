@@ -1,5 +1,6 @@
 package net.agten.heatersimulator.domain;
 
+
 /**
  * This class represents the heater.
  *

@@ -1,7 +1,5 @@
 package net.agten.heatersimulator.gui;
 
-import net.agten.heatersimulator.Main;
-
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import net.agten.heatersimulator.Main;
 
 public class AboutDialog {
     private final JDialog dialog;
